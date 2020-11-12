@@ -1,9 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+    public int m_leftBoundary;
+    public int m_rightBoundary;
+    public GameObject m_gameOverPanel;
     //public Rigidbody2D rb;
     public GameObject m_ball;
     
@@ -11,6 +15,7 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        m_gameOverPanel.SetActive(false);
         //rb = GetComponent<Rigidbody2D>();
     }
 
@@ -31,6 +36,23 @@ public class GameController : MonoBehaviour
 
             }
         }
+        GameOver();
+    }
+
+    public void GameOver()
+    {
+        if(m_ball.transform.position.y < -2)
+        {
+            m_gameOverPanel.SetActive(true);
+        }
+    }
+
+    public void Restart()
+    {
+        //Debug.Log("Restarted");
+        Time.timeScale = 1f;
+        //Application.LoadLevel(Application.loadedLevel);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     /*public void Left()
     {
